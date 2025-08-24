@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XeroWare G3N S3RVER</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --space-dark: #0a0a2a;
+            --space-purple: #4a1c6d;
+            --space-blue: #1a1a72;
+            --neon-pink: #ff2a6d;
+            --neon-blue: #05d9e8;
+            --neon-purple: #a56ef0;
+            --text-light: #ffffff;
+            --text-glow: #e0e0ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #050518, #0a0a2a, #1a1a4d);
+            color: var(--text-light);
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 10px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 5px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+            background-attachment: fixed;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(10, 10, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--neon-purple);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(165, 110, 240, 0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--neon-blue);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(90, 30, 150, 0.3) 0%, rgba(10, 10, 42, 0) 70%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 52px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 42, 109, 0.5);
+        }
+        
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 30px;
+            color: var(--text-glow);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 42, 109, 0.5);
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(255, 42, 109, 0.7);
+        }
+        
+        /* Categories Section */
+        .categories {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(5, 217, 232, 0.5);
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: var(--text-glow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            background: rgba(20, 20, 60, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(165, 110, 240, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 42, 109, 0.1), rgba(165, 110, 240, 0.1));
+            z-index: -1;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(165, 110, 240, 0.3);
+        }
+        
+        .category-card:hover::before {
+            transform: translateY(0);
+        }
+        
+        .category-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(5, 217, 232, 0.5);
+        }
+        
+        .category-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--neon-purple);
+        }
+        
+        .category-card p {
+            color: var(--text-glow);
+            margin-bottom: 20px;
+        }
+        
+        .discord-emoji {
+            height: 24px;
+            width: 24px;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        
+        .feature-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li::before {
+            content: '✦';
+            color: var(--neon-pink);
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 42, 0.9);
+            padding: 50px 0 20px;
+            border-top: 1px solid var(--neon-purple);
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--text-glow);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon-pink);
+            margin-left: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(165, 110, 240, 0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        /* Discord Emoji Styling */
+        .emoji-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .emoji-item {
+            margin: 0 10px;
+            text-align: center;
+        }
+        
+        .emoji {
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+        
+        .emoji-label {
+            font-size: 14px;
+            color: var(--text-glow);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">XeroWare G3N S3RVER</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#premium">Premium</a></li>
+                    <li><a href="#join">Join Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Ultimate G3N S3RVER Experience</h1>
+                <p>Premium account generations, method vaults, and exclusive tools all in one place</p>
+                <a href="https://discord.gg/MdyB44DG5U" class="btn">Join Our Discord</a>
+                
+                <div class="emoji-container">
+                    <div class="emoji-item">
+                        <div class="emoji">🔥</div>
+                        <div class="emoji-label">Premium Gens</div>
+                    </div>
+                    <div class="emoji-item">
+                        <div class="emoji">🔓</div>
+                        <div class="emoji-label">Free Access</div>
+                    </div>
+                    <div class="emoji-item">
+                        <div class="emoji">⚡</div>
+                        <div class="emoji-label">Fast Restocks</div>
+                    </div>
+                    <div class="emoji-item">
+                        <div class="emoji">🎁</div>
+                        <div class="emoji-label">Exclusive Tools</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>What We Offer</h2>
+                <p>Discover the ultimate generation server with exclusive features</p>
+            </div>
+            
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">🔓</div>
+                    <h3>Free Gen Zone</h3>
+                    <p>Access a wide range of free generators</p>
+                    <ul class="feature-list">
+                        <li>Netflix Accounts</li>
+                        <li>Spotify Premium</li>
+                        <li>Paramount+</li>
+                        <li>Roblox Premium</li>
+                        <li>Crunchyroll Premium</li>
+                        <li>MCNFA Accounts</li>
+                        <li>Disney+</li>
+                        <li>HBOMax</li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">🔐</div>
+                    <h3>Premium Gen Vault</h3>
+                    <p>Exclusive high-quality generators</p>
+                    <ul class="feature-list">
+                        <li>ExpressVPN Accounts</li>
+                        <li>DAZN Premium</li>
+                        <li>Steam Games</li>
+                        <li>Cyberghost VPN</li>
+                        <li>Private Drops</li>
+                        <li>Higher Quality Accounts</li>
+                        <li>Faster Restocks</li>
+                        <li>Priority Support</li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">💰</div>
+                    <h3>OwO Cash System</h3>
+                    <p>Earn and spend in-server currency</p>
+                    <ul class="feature-list">
+                        <li>Buy Services with OwO Cash</li>
+                        <li>React Fast for Limited Stock</li>
+                        <li>Exclusive Deals</li>
+                        <li>Daily Rewards</li>
+                        <li>Invite Rewards</li>
+                        <li>Activity Bonuses</li>
+                        <li>Special Events</li>
+                        <li>Currency Trading</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Section -->
+    <section class="categories" id="premium" style="background: rgba(20, 10, 40, 0.5);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Premium Features</h2>
+                <p>Unlock the full potential with server boosting</p>
+            </div>
+            
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">🚀</div>
+                    <h3>Boost Benefits</h3>
+                    <p>Get exclusive access by boosting our server</p>
+                    <ul class="feature-list">
+                        <li>Booster-Only Methods</li>
+                        <li>Exclusive Tools Collection</li>
+                        <li>Premium Vault Files</li>
+                        <li>Priority Support</li>
+                        <li>Special Booster Role</li>
+                        <li>Access to All Channels</li>
+                        <li>Early Feature Access</li>
+                        <li>Custom Color Profile</li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">🎁</div>
+                    <h3>Invite Rewards</h3>
+                    <p>Earn rewards by inviting friends</p>
+                    <ul class="feature-list">
+                        <li>Crunchyroll Premium</li>
+                        <li>MCNFA Accounts</li>
+                        <li>Premium Gen Access</li>
+                        <li>Exclusive Methods</li>
+                        <li>OwO Cash Bonuses</li>
+                        <li>Special Roles</li>
+                        <li>Increased Limits</li>
+                        <li>VIP Treatment</li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">⭐</div>
+                    <h3>Why Choose Us</h3>
+                    <p>The ultimate generation experience</p>
+                    <ul class="feature-list">
+                        <li>No Ads or Redirects</li>
+                        <li>Instant Access</li>
+                        <li>High Quality Generations</li>
+                        <li>Frequent Restocks</li>
+                        <li>Active Community</li>
+                        <li>Helpful Staff</li>
+                        <li>Regular Updates</li>
+                        <li>24/7 Availability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section class="categories" id="join">
+        <div class="container">
+            <div class="section-title">
+                <h2>Join XeroWare Today</h2>
+                <p>Become part of the ultimate generation community</p>
+            </div>
+            
+            <div class="category-card" style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <div class="category-icon">🔥</div>
+                <h3>Ready to Get Started?</h3>
+                <p>Join our Discord server to access all our features and start generating today!</p>
+                
+                <div style="margin: 30px 0;">
+                    <a href="https://discord.gg/MdyB44DG5U" class="btn">Join Discord Server</a>
+                </div>
+                
+                <p>XeroWare never disappoints. Join the vault and claim the fire!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>XeroWare</h3>
+                    <p>The ultimate generation server with premium accounts, methods, and tools.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#premium">Premium</a></li>
+                        <li><a href="#join">Join Now</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://discord.gg/MdyB44DG5U">Discord Server</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 XeroWare G3N S3RVER. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.category-card, .btn');
+            
+            animatedElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    element.classList.add('floating');
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.classList.remove('floating');
+                });
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
